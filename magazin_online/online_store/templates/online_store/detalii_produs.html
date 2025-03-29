@@ -1,0 +1,10 @@
+{% extends 'online_store/base.html' %}
+{% block content %}
+
+    <h2>{{produs.denumire}}</h2>
+    <p>{{produs.descriere}}</p>
+    <p>Pret: ${{produs.pret}}</p>
+    <button type="submit">Adauga in cos</button>
+    <img src="{{ produs.image.url }}" alt="{{ produs.denumire }}">
+    
+{% endblock%}

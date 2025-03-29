@@ -1,0 +1,15 @@
+{% extends 'online_store/base.html' %}
+{% block content %}
+<h2>Cos de cumparaturi</h2>
+{% if comanda %}
+ <ul>
+    {% for item in comanda.itemcomanda_set.all %}
+
+      <li>
+        {{item.cantitate}} x {{item.produs.denumire}} - ${{item.produs.pret}}
+      </li>
+    {% endfor %}
+ </ul>
+ <p><strong>Pret total: ${{comanda.pret_total}}</strong></p>
+{% endif %}
+{% endblock %}

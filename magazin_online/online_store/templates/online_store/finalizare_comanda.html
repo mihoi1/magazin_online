@@ -1,0 +1,20 @@
+{% extends "online_store/base.html" %}
+{% block content %}
+    <h2>Finalizare Comandă</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="metoda_plata">Metoda de plată:</label>
+        <select name="metoda_plata">
+            <option value="card">Card bancar</option>
+            <option value="ramburs">Plată la livrare</option>
+        </select>
+
+        <label for="metoda_livrare">Metoda de livrare:</label>
+        <select name="metoda_livrare">
+            <option value="curier">Curier rapid</option>
+            <option value="posta">Poșta română</option>
+        </select>
+
+        <button type="submit">Plasează comanda</button>
+    </form>
+{% endblock %}

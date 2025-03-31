@@ -1,10 +1,16 @@
 {% extends 'online_store/base.html' %}
 {% block content %}
 
-    <h2>{{produs.denumire}}</h2>
-    <p>{{produs.descriere}}</p>
-    <p>Pret: ${{produs.pret}}</p>
-    <button type="submit">Adauga in cos</button>
-    <img src="{{ produs.image.url }}" alt="{{ produs.denumire }}">
-    
-{% endblock%}
+    <h2>{{ produs.denumire }}</h2>
+    <p>{{ produs.descriere }}</p>
+    <p>Preț: {{ produs.pret }} RON</p>
+    <img src="{{ produs.image.url }}" alt="{{ produs.denumire }}" width="500" height="400">
+
+    <form action="{% url 'adauga_in_cos' produs.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Adaugă în coș</button>
+    </form>
+
+    <a href="{% url 'cos' %}">Mergi la coș</a>
+
+{% endblock %}

@@ -1,10 +1,14 @@
 {% extends 'online_store/base.html' %}
 {% block content %}
  <h2>Produse</h2>
+ <form method="GET" action="{% url 'lista_produse' %}">
+  <input type="text" name="q" value="{{ query }}" placeholder="Caută produse...">
+  <button type="submit">Caută</button>
+ </form>
  <ul>
     {% for produs in produse %}
       <li>
-        <a href="{% url 'detalii_produs' produs.id %}">{{produs.denumire}}</a> - ${{produs.pret}}
+        <a href="{% url 'detalii_produs' produs.id %}">{{produs.denumire}}</a> - {{produs.pret}} RON
       </li>
     {% endfor %}
  </ul>

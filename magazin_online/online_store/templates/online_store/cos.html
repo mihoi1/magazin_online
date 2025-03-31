@@ -1,15 +1,21 @@
-{% extends 'online_store/base.html' %}
+{% extends "online_store/base.html" %}
 {% block content %}
-<h2>Cos de cumparaturi</h2>
-{% if comanda %}
- <ul>
-    {% for item in comanda.itemcomanda_set.all %}
 
-      <li>
-        {{item.cantitate}} x {{item.produs.denumire}} - ${{item.produs.pret}}
-      </li>
-    {% endfor %}
- </ul>
- <p><strong>Pret total: ${{comanda.pret_total}}</strong></p>
+<h2>Coșul de cumpărături</h2>
+
+{% if comanda and comanda.itemcomanda_set.all %}
+    <ul>
+        {% for item in comanda.itemcomanda_set.all %}
+            <li>
+                {{ item.produs.denumire }} - {{ item.cantitate }} x {{ item.produs.pret }} RON
+                <a href="{% url 'sterge_din_cos' item.id %}">Șterge</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <p><strong>Total: {{ comanda.pret_total }} RON</strong></p>
+    <a href="{% url 'finalizare_comanda' %}">Finalizează comanda</a>
+{% else %}
+    <p>Coșul este gol.</p>
 {% endif %}
+
 {% endblock %}

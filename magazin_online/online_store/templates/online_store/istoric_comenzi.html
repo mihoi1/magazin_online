@@ -1,0 +1,11 @@
+{% extends "online_store/base.html" %}
+{% block content %}
+    <h2>Istoric Comenzi</h2>
+    {% for comanda in comenzi %}
+        <p>Comanda #{{ comanda.id }} - Status: {{ comanda.get_status_display }} - {{ comanda.data_plasare }}</p>
+        <p>Plata: {{ comanda.get_metoda_plata_display }} | Livrare: {{ comanda.get_metoda_livrare_display }}</p>
+        <hr>
+    {% empty %}
+        <p>Nu aveți comenzi plasate.</p>
+    {% endfor %}
+{% endblock %}

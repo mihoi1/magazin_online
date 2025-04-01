@@ -1,32 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Magazin Online</title>
-        <meta name="description" content="">
         {% load static %}
-        <link rel="stylesheet" href="{% static 'online_store/css/styles.css' %}"> <!-- am facut un fisier separat pt css si l am redirectionat in path ul lui-->
+        <link rel="stylesheet" href="{% static 'online_store/css/styles.css' %}">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+            header {
+                background-color: #343a40;
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }
+            header h1 {
+                margin: 0;
+            }
+            nav {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                padding: 10px;
+                background: #495057;
+            }
+            nav a {
+                color: white;
+                text-decoration: none;
+                padding: 8px 15px;
+                border-radius: 5px;
+                transition: background 0.3s;
+            }
+            nav a:hover {
+                background: #6c757d;
+            }
+            main {
+                max-width: 1200px;
+                margin: 20px auto;
+                padding: 20px;
+                background: white;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+            }
+            footer {
+                text-align: center;
+                padding: 20px;
+                background: #343a40;
+                color: white;
+                margin-top: 20px;
+            }
+        </style>
     </head>
     <body>
       <header>
-        <h1>Online Store</h1>
+        <h1>Magazin Online</h1>
         <h2>
           {% if user.is_authenticated %}
-          <p>Bun venit, </p><a href="{% url 'cont_utilizator' %}" >{{ user.username }}</a>
+          <p>Bun venit, <a href="{% url 'cont_utilizator' %}" style="color: #ffc107;">{{ user.username }}</a></p>
           {% if user.is_superuser %}
-          <p>Tip cont: Administrator</p>
-         {% else %}
-         <p>Tip cont: Utilizator normal</p>
-         {% endif %}
-         {% else %}
-         <p>Nu ești autentificat.</p>
-         {% endif %}
+          <p>Tip cont: <span style="color: #17a2b8;">Administrator</span></p>
+          {% else %}
+          <p>Tip cont: <span style="color: #28a745;">Utilizator normal</span></p>
+          {% endif %}
+          {% else %}
+          <p>Nu ești autentificat.</p>
+          {% endif %}
         </h2>
-        <nav> 
+        <nav>
             <a href="{% url 'lista_produse' %}">Home</a>
-            <a href="{% url 'cos' %}">Cos</a>
+            <a href="{% url 'cos' %}">Coș</a>
             {% if user.is_authenticated %}
+              <a href="{% url 'istoric_comenzi' %}">Istoric Comenzi</a>
+              <a href="{% url 'finalizare_comanda' %}">Finalizează Comanda</a>
               <a href="{% url 'logout'%}">Logout</a>
             {% else %}
               <a href="{% url 'login' %}">Login</a>
@@ -39,9 +90,7 @@
         {% endblock %}
       </main>
       <footer>
-        <p>
-          &copy; 2025 Magazin Online
-        </p>
+        <p>&copy; 2025 Magazin Online</p>
       </footer>
     </body>
 </html>

@@ -1,11 +1,32 @@
-{% extends "online_store/base.html" %}
+{% extends 'online_store/base.html' %}
+
 {% block content %}
-    <h2>Istoric Comenzi</h2>
-    {% for comanda in comenzi %}
-        <p>Comanda #{{ comanda.id }} - Status: {{ comanda.get_status_display }} - {{ comanda.data_plasare }}</p>
-        <p>Plata: {{ comanda.get_metoda_plata_display }} | Livrare: {{ comanda.get_metoda_livrare_display }}</p>
+<h2>Istoric Comenzi</h2>
+<style>
+    .comanda {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    .comanda h3 {
+        margin: 0;
+    }
+    .comanda p{
+        margin: 5px 0;
+    }
+
+</style>
+{% for comanda in comenzi %}
+    <div>
+        <p>Comanda - Data: {{ comanda.data_plasare }}</p>
+        <p>Status: {{ comanda.get_status_display }}</p>
+        <p>Metoda de plată: {{ comanda.get_metoda_plata_display }}</p>
+        <p>Metoda de livrare: {{ comanda.get_metoda_livrare_display }}</p>
         <hr>
-    {% empty %}
-        <p>Nu aveți comenzi plasate.</p>
-    {% endfor %}
+    </div>
+{% empty %}
+    <p>Nu ai comenzi plasate.</p>
+{% endfor %}
+
 {% endblock %}

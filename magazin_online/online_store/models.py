@@ -15,7 +15,7 @@ class Produs(models.Model):
     
 class Comanda(models.Model):
     STATUS_CHOICES = (
-        ('in_cos', 'În Coș'),
+        ('in_asteptare', 'În asteptare'),
         ('plasata', 'Plasată'),
         ('procesata', 'Procesată'),
         ('livrata', 'Livrată'),

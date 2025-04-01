@@ -9,10 +9,10 @@ class ProdusAdmin(admin.ModelAdmin):
 
 @admin.register(Comanda)
 class ComandaAdmin(admin.ModelAdmin):
-    list_display=('user_username','pret_total','data_plasare')
-    search_fields=('user__username',)
-    list_filter=('pret_total','data_plasare',)
-
+    list_display = ('user', 'data_plasare', 'pret_total', 'status', 'metoda_plata', 'metoda_livrare')
+    list_filter = ('status', 'metoda_plata', 'metoda_livrare')
+    search_fields = ('user__username',)
+    
     def user_username(self, obj):
         return obj.user.username
     user_username.short_description='User'
@@ -22,3 +22,4 @@ class ItemComandaAdmin(admin.ModelAdmin):
     list_display=('comanda__id', 'produs__denumire', 'cantitate')
     search_fields=('produs__denumire',)
     list_filter=('cantitate',)
+

@@ -6,8 +6,8 @@
 <p><strong>Email:</strong> {{ user.email }}</p>
 <p><strong>Tip cont:</strong> {% if user.is_superuser %} Administrator {% else %} Utilizator normal {% endif %}</p>
 
-<h3>Istoric Comenzi</h3>
-    <p>Nu ai comenzi plasate.</p>
+<h3><a href="{% url 'istoric_comenzi' %}">Istoric Comenzi</a></h3>
+    
 
 <a href="{% url 'logout' %}">Logout</a>
 {% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'online_store/base.html' %}
+
+{% block content %}
+<style>
+    .btn {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color:white;
+        text-decoration:none;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+</style>
+    <h2>Detalii Comandă #{{ comanda.id }}</h2>
+    
+    <p><strong>Metoda de livrare:</strong> {{ comanda.metoda_livrare }}</p>
+    <p><strong>Metoda de plată:</strong> {{ comanda.metoda_plata }}</p>
+    <p><strong>Total: {{ comanda.pret_total }} RON</strong></p>
+    
+    <h3>Produse în comandă:</h3>
+    <ul>
+        {% for item in produse %}
+            <li>{{ item.produs.denumire }} - Cantitate: {{ item.cantitate }} - Preț: {{ item.produs.pret }} RON</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'istoric_comenzi' %}" class="btn">Înapoi la Istoric</a>
+{% endblock %}

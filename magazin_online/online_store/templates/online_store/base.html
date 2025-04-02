@@ -74,6 +74,7 @@
         </h2>
         <nav>
             <a href="{% url 'lista_produse' %}">Home</a>
+            <a href="{% url 'cont_utilizator' %}">Contul meu</a>
             <a href="{% url 'cos' %}">Coș</a>
             {% if user.is_authenticated %}
               <a href="{% url 'istoric_comenzi' %}">Istoric Comenzi</a>

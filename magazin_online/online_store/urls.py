@@ -16,4 +16,5 @@ urlpatterns = [
     path('admin/comenzi/<int:comanda_id>/status/', views.actualizeaza_status_comanda, name='actualizeaza_status_comanda'),
     path('confirmare-comanda/', views.pagina_confirmare_comanda, name='pagina_confirmare_comanda'),
     path('procesare-plata/<int:comanda_id>/', views.procesare_plata, name='procesare_plata'),
+    path('comanda/<int:comanda_id>/', views.detalii_comanda, name='detalii_comanda'),
 ]

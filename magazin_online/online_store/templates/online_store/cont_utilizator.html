@@ -1,6 +1,18 @@
 {% extends 'online_store/base.html' %}
 
 {% block content %}
+<style>
+    a {
+        margin-top: 20px;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+    a:hover {
+        text-decoration: underline;
+    }   
+</style>
+
 <h2>Profil Utilizator</h2>
 <p><strong>Nume:</strong> {{ user.username }}</p>
 <p><strong>Email:</strong> {{ user.email }}</p>

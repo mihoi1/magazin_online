@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import Http404, HttpResponse
-from online_store.models import Comanda
+from online_store.models import Comanda, ItemComanda
 
 @login_required
 def istoric_comenzi(request):
@@ -52,3 +52,12 @@ def finalizare_comanda(request):
 
 def pagina_confirmare_comanda(request):
     return render(request, 'online_store/confirmare_comanda.html')
+
+def detalii_comanda(request, comanda_id):
+    comanda = get_object_or_404(Comanda, id=comanda_id)
+    produse = ItemComanda.objects.filter(comanda=comanda)  # Obținem produsele din comanda
+
+    return render(request, 'online_store/detalii_comanda.html', {
+        'comanda': comanda,
+        'produse': produse
+    })

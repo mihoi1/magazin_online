@@ -17,7 +17,6 @@ class Comanda(models.Model):
     STATUS_CHOICES = (
         ('in_asteptare', 'În asteptare'),
         ('plasata', 'Plasată'),
-        ('procesata', 'Procesată'),
         ('livrata', 'Livrată'),
         ('anulata', 'Anulată'),
     )

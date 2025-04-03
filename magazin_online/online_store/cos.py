@@ -9,7 +9,7 @@ def adauga_in_cos(request, produs_id):
     produs = get_object_or_404(Produs, id=produs_id)
     comanda, created = Comanda.objects.get_or_create(user=request.user, status='in_asteptare')
 
-    # Verificăm dacă produsul există deja în coș
+    # Verificam daca produsul exista deja in cos
     item, item_created = ItemComanda.objects.get_or_create(comanda=comanda, produs=produs)
     if not item_created:
         item.cantitate += 1

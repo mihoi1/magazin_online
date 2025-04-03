@@ -2,50 +2,86 @@
 
 {% block content %}
 <h2>Istoric Comenzi</h2>
+
 <style>
     .comanda {
         border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
     }
     .comanda h3 {
         margin: 0;
+        color: #333;
     }
-    .comanda p{
+    .comanda p {
         margin: 5px 0;
+        color: #555;
     }
-    .comanda a {
+    .comanda a, .btn {
+        display: inline-block;
+        padding: 7px 12px;
         text-decoration: none;
-        color: #007bff;
         font-weight: bold;
-    }
-    .comanda a:hover {
-        text-decoration: underline;
+        border-radius: 5px;
+        transition: 0.3s;
     }
     .btn {
-        display: inline-block;
-        padding: 5px 10px;
         background-color: #007bff;
         color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: background 0.3s;
     }
     .btn:hover {
         background-color: #0056b3;
     }
-
-
+    .btn-cancel {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-cancel:hover {
+        background-color: #b52b38;
+    }
+    .btn-confirm {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-confirm:hover {
+        background-color: #1e7e34;
+    }
+    hr {
+        border: 0;
+        height: 1px;
+        background: #ccc;
+        margin: 10px 0;
+    }
 </style>
+
 {% for comanda in comenzi %}
-    <div>
-        <p>Comanda #{{ comanda.id }} - Data: {{ comanda.data_plasare }}</p>
-        <p>Status: {{ comanda.get_status_display }}</p>
-        <p>Metoda de plată: {{ comanda.get_metoda_plata_display }}</p>
-        <p>Metoda de livrare: {{ comanda.get_metoda_livrare_display }}</p>
+    <div class="comanda">
+        <h3>Comanda #{{ comanda.id }} - {{ comanda.data_plasare }}</h3>
+        <p><strong>Status:</strong> {{ comanda.get_status_display }}</p>
+        <p><strong>Metoda de plată:</strong> {{ comanda.get_metoda_plata_display }}</p>
+        <p><strong>Metoda de livrare:</strong> {{ comanda.get_metoda_livrare_display }}</p>
+
         <a href="{% url 'detalii_comanda' comanda.id %}" class="btn">Vezi Detalii</a>
-        <hr>
+
+        {% if comanda.status == "in_asteptare" or comanda.status == "plasata" %}
+            <form method="post" action="{% url 'anuleaza_comanda' comanda.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-cancel">Anulează</button>
+            </form>
+        {% endif %}
+
+        {% if comanda.status == "plasata" %}
+        <form method="post" action="{% url 'confirma_livrare' comanda.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-confirm">Am primit comanda</button>
+        </form>
+        {% endif %}
     </div>
 {% empty %}
     <p>Nu ai comenzi plasate.</p>

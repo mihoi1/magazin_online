@@ -17,4 +17,6 @@ urlpatterns = [
     path('confirmare-comanda/', views.pagina_confirmare_comanda, name='pagina_confirmare_comanda'),
     path('procesare-plata/<int:comanda_id>/', views.procesare_plata, name='procesare_plata'),
     path('comanda/<int:comanda_id>/', views.detalii_comanda, name='detalii_comanda'),
+    path("anuleaza-comanda/<int:comanda_id>/", views.anuleaza_comanda, name="anuleaza_comanda"),
+    path('comanda/<int:comanda_id>/confirma-receptie/', views.confirma_livrare, name='confirma_livrare'),
 ]

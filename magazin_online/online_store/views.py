@@ -38,7 +38,7 @@ def procesare_plata(request, comanda_id):
         elif not re.fullmatch(r"\d{3}", cvv):
             error = "CVV-ul trebuie să aibă exact 3 cifre."
         else:
-            # Simulăm confirmarea plății
+            # Simulam confirmarea platii
             comanda.status = "plasata"
             comanda.save()
             return redirect('pagina_confirmare_comanda')

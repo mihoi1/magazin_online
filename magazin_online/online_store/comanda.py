@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseForbidden
+from django.contrib import messages
 from online_store.models import Comanda, ItemComanda
 
 @login_required
@@ -35,17 +36,17 @@ def finalizare_comanda(request):
         if not metoda_plata or not metoda_livrare:
             return render(request, 'online_store/finalizare_comanda.html', {"comanda": comanda, "error": "Te rog să selectezi metoda de plată și livrare."})
 
-        # Salvăm metoda de plată și livrare
+        # Salvam metoda de plata și livrare
         comanda.metoda_plata = metoda_plata
         comanda.metoda_livrare = metoda_livrare
 
         if metoda_plata == "ramburs":
-            # Plata la livrare -> marcăm direct ca platită
+            # Plata la livrare -> marcăm direct ca platita
             comanda.status = "plasata"
             comanda.save()
             return redirect('pagina_confirmare_comanda')
         else:
-            # Plata cu cardul -> simulăm procesul de plată
+            # Plata cu cardul -> simulam procesul de plata
             return redirect('procesare_plata', comanda_id=comanda.id)
 
     return render(request, 'online_store/finalizare_comanda.html', {"comanda": comanda})
@@ -61,3 +62,32 @@ def detalii_comanda(request, comanda_id):
         'comanda': comanda,
         'produse': produse
     })
+
+
+@login_required
+def anuleaza_comanda(request, comanda_id):
+    comanda = get_object_or_404(Comanda, id=comanda_id, user=request.user)
+    
+    if comanda.status in ["in_asteptare", "plasata"]:
+        comanda.status = "anulata"
+        comanda.save()
+        messages.success(request, "Comanda a fost anulată cu succes.")
+    else:
+        messages.error(request, "Comanda nu poate fi anulată deoarece este deja procesată sau livrată.")
+
+    return redirect("istoric_comenzi")  
+
+@login_required
+def confirma_livrare(request, comanda_id):
+    comanda = get_object_or_404(Comanda, id=comanda_id, user=request.user)
+
+    if request.method == "POST":
+
+        if comanda.status == "plasata":
+            comanda.status = "livrata"
+            comanda.save()
+            messages.success(request, "Comanda a fost marcată ca livrată.")
+        else:
+            messages.error(request, "Această comandă nu poate fi confirmată ca livrată.")
+
+    return redirect('istoric_comenzi')

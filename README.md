@@ -8,8 +8,8 @@ This is an online shop project built with Django that offers essential e-commerc
 - 🛒 Shopping cart linked to the user and stored in the database
 - ✍️ Manually add products to the cart as a user
 - ✅ Checkout with:
-  - Choice of payment method: Bank Card / Cash on Delivery
-  - Choice of delivery method: Courier / EasyBox
+  - Choice of payment method: Online with Credit Card / Cash on Delivery
+  - Choice of delivery method: Courier / EasyBox Locker
 - 📦 Order status management:
   - Pending
   - Delivered

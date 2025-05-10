@@ -14,6 +14,7 @@ This is an online shop project built with Django that offers essential e-commerc
   - Pending
   - Delivered
   - Cancelled
+
 -Order history for each user
 -User authentication and registration
 -Total price display for each order
